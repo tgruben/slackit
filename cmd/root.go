@@ -6,6 +6,7 @@ import (
 	"github.com/slack-go/slack"
 	"github.com/spf13/cobra"
 	"github.com/toddgruben/slackit/internal/auth"
+	"github.com/toddgruben/slackit/internal/config"
 )
 
 var (
@@ -14,6 +15,7 @@ var (
 	flagDebug     bool
 
 	slackClient *slack.Client
+	appConfig   *config.Config
 )
 
 var rootCmd = &cobra.Command{
@@ -23,6 +25,13 @@ var rootCmd = &cobra.Command{
 	SilenceUsage:  true,
 	SilenceErrors: true,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+		// Load config (non-fatal if missing)
+		cfg, err := config.Load()
+		if err != nil {
+			return err
+		}
+		appConfig = cfg
+
 		// Skip auth for commands that don't need it
 		if cmd.Name() == "version" || cmd.Name() == "help" {
 			return nil

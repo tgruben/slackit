@@ -20,10 +20,11 @@ var uploadCmd = &cobra.Command{
 	Short: "Upload a file to a channel or user",
 	Long: `Upload a file to a Slack channel or user.
 
-Target can be #channel-name, @username, @user@email.com, or a raw Slack ID.`,
+Target can be #channel-name, @username, @user@email.com, a raw Slack ID,
+or a shortcut name from ~/.slackit.json.`,
 	Args: cobra.ExactArgs(2),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		target := args[0]
+		target := appConfig.ResolveShortcut(args[0])
 		filePath := args[1]
 
 		// Verify file exists
@@ -58,7 +59,7 @@ Target can be #channel-name, @username, @user@email.com, or a raw Slack ID.`,
 			return fmt.Errorf("failed to upload file: %w", err)
 		}
 
-		fmt.Fprintf(os.Stderr, "File %s uploaded to %s\n", filename, target)
+		fmt.Fprintf(os.Stderr, "File %s uploaded to %s\n", filename, args[0])
 		return nil
 	},
 }

@@ -18,11 +18,12 @@ var sendCmd = &cobra.Command{
 	Short: "Send a message to a channel or user",
 	Long: `Send a message to a Slack channel or user.
 
-Target can be #channel-name, @username, @user@email.com, or a raw Slack ID.
+Target can be #channel-name, @username, @user@email.com, a raw Slack ID,
+or a shortcut name from ~/.slackit.json.
 Use "-" as the message to read from stdin.`,
 	Args: cobra.ExactArgs(2),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		target := args[0]
+		target := appConfig.ResolveShortcut(args[0])
 		message := args[1]
 
 		// Read from stdin if message is "-"
@@ -51,7 +52,7 @@ Use "-" as the message to read from stdin.`,
 			return fmt.Errorf("failed to send message: %w", err)
 		}
 
-		fmt.Fprintf(os.Stderr, "Message sent to %s\n", target)
+		fmt.Fprintf(os.Stderr, "Message sent to %s\n", args[0])
 		return nil
 	},
 }
