@@ -1,4 +1,4 @@
-module github.com/toddgruben/slackit
+module github.com/tgruben/slackit
 
 go 1.25.5
 

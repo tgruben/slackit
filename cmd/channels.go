@@ -7,7 +7,7 @@ import (
 
 	"github.com/slack-go/slack"
 	"github.com/spf13/cobra"
-	"github.com/toddgruben/slackit/internal/format"
+	"github.com/tgruben/slackit/internal/format"
 )
 
 var (

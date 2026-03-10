@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/toddgruben/slackit/cmd"
+	"github.com/tgruben/slackit/cmd"
 )
 
 func main() {

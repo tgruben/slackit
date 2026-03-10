@@ -5,8 +5,8 @@ import (
 
 	"github.com/slack-go/slack"
 	"github.com/spf13/cobra"
-	"github.com/toddgruben/slackit/internal/auth"
-	"github.com/toddgruben/slackit/internal/config"
+	"github.com/tgruben/slackit/internal/auth"
+	"github.com/tgruben/slackit/internal/config"
 )
 
 var (
